@@ -2,11 +2,11 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import AddNewContact from "./AddNewContact";
 import { addContact } from "../../ContactsSlice";
-import EditContact from "./EditContact";
+
 
 const Contact = ({ contacts, addContact }: any) => {
   const [addNew, setAddNew] = useState(false);
-  const [editContact, setEditContact] = useState(false);
+ 
 
   const openAddNew = () => {
     setAddNew(true);
