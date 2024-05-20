@@ -32,69 +32,77 @@ export default function AddNewContact({ close }: any) {
   return (
     <div className="fixed top-0 left-0 w-full h-screen bg-white bg-opacity-80 flex justify-center items-center z-10 shadow-md">
       <div className="w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-[#eaf2fa] rounded p-4 border border-gray">
-        <div className="text-lg font-semibold mb-4">Add New Contact</div>
+        <div className="text-lg font-semibold">Add New Contact</div>
+        <div className="font-light text-[12px]">
+          Note: * Represents all fields are required fields
+        </div>
 
         <div className="flex flex-col space-y-4">
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="flex-1">
-              <div>First Name</div>
+              <div>First Name *</div>
               <input
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
                 className="border border-gray rounded p-2 mt-2 w-full"
+                required
               />
             </div>
             <div className="flex-1">
-              <div>Last Name</div>
+              <div>Last Name *</div>
               <input
                 type="text"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
                 className="border border-gray-300 rounded p-2 mt-2 w-full"
+                required
               />
             </div>
           </div>
 
           <div>
-            <div>Email</div>
+            <div>Email *</div>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               className="border border-gray rounded p-2 mt-2 w-full"
+              required
             />
           </div>
 
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="flex-1">
-              <div>Phone Number</div>
+              <div>Phone Number *</div>
               <input
                 type="text"
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
                 className="border border-gray rounded p-2 mt-2 w-full"
+                required
               />
             </div>
           </div>
 
           <div>
-            <div>Role</div>
+            <div>Role *</div>
             <input
               type="text"
               name="role"
               value={formData.role}
               onChange={handleChange}
               className="border border-gray rounded p-2 mt-2 w-full"
+              required
             />
           </div>
 
           <div>
-            <div>Status</div>
+            <div>Status *</div>
             <label className="flex items-center mt-2">
               <input
                 type="radio"

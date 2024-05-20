@@ -62,6 +62,7 @@ export default function EditContact({ close, contact }:any) {
               type="email"
               name="email"
               value={formData.email}
+              disabled
               onChange={handleChange}
               className="border border-gray rounded p-2 mt-2 w-full"
             />
