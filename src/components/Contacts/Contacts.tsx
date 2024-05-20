@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import AddNewContact from "./AddNewContact";
-import { addContact } from "../../ContactsSlice";
-
+import { addContact, editContact } from "../../ContactsSlice";
+import EditContact from "./EditContact";
+import DeleteContact from "./DeleteContact";
 
 const Contact = ({ contacts, addContact }: any) => {
   const [addNew, setAddNew] = useState(false);
- 
+  const [editNew, setEditNew] = useState(false);
+  const [deleteContact,setDeleteContact]=useState(false);
+  const [selectedContact, setSelectedContact] = useState<any>(null);
 
   const openAddNew = () => {
     setAddNew(true);
@@ -16,6 +19,25 @@ const Contact = ({ contacts, addContact }: any) => {
     setAddNew(false);
   };
 
+  const openEdit = (contact: any) => {
+    setEditNew(true);
+    setSelectedContact(contact);
+  };
+
+  const closeEdit = () => {
+    setEditNew(false);
+    setSelectedContact(null);
+  };
+
+  const openDelete=()=>{
+    setDeleteContact(true)
+  }
+
+  const closeDelete=()=>{
+    setDeleteContact(false)
+  }
+
+
   return (
     <>
       <div className="p-4 md:pl-64">
@@ -24,8 +46,8 @@ const Contact = ({ contacts, addContact }: any) => {
         </div>
 
         <div className="mt-20 md:flex gap-4 flex-wrap justify-center">
-          {contacts.map((contact: any) => (
-            <div key={contact.id} className="w-full md:w-[300px] mb-6 md:mb-0">
+          {contacts.map((contact: any, index: any) => (
+            <div key={index} className="w-full md:w-[300px] mb-6 md:mb-0">
               <div className="bg-white shadow-md rounded-md p-4">
                 <div className="flex justify-center w-full">
                   <div>
@@ -45,14 +67,20 @@ const Contact = ({ contacts, addContact }: any) => {
                 </div>
                 <div className="mt-6">
                   <div>{contact.email}</div>
-                  <div>{contact.phoneNumber}</div>
+                  <div>
+                    +{contact.dialCode}
+                    {contact.phoneNumber}
+                  </div>
                 </div>
                 <div className="flex justify-center gap-x-2">
-                  <button className="px-4 py-2  rounded-[9px] text-[15px] text-white bg-[#4987EE] active:scale-90 hover:bg-opacity-80">
+                  <button
+                    className="px-4 py-2  rounded-[9px] text-[15px] text-white bg-[#4987EE] active:scale-90 hover:bg-opacity-80"
+                    onClick={() => openEdit(contact)}
+                  >
                     Edit
                   </button>
 
-                  <button className="px-4 py-2 text-white rounded-[9px] text-[15px] bg-Red active:scale-90 hover:bg-opacity-80">
+                  <button className="px-4 py-2 text-white rounded-[9px] text-[15px] bg-Red active:scale-90 hover:bg-opacity-80" onClick={openDelete}>
                     Delete
                   </button>
                 </div>
@@ -61,7 +89,6 @@ const Contact = ({ contacts, addContact }: any) => {
           ))}
         </div>
       </div>
-
       <div className="absolute right-0 p-3 mt-6">
         <button
           className="px-4 py-2 text-white rounded-[9px] text-[15px] bg-[#4987EE] active:scale-90 hover:bg-opacity-80"
@@ -70,18 +97,27 @@ const Contact = ({ contacts, addContact }: any) => {
           + Add New
         </button>
       </div>
-
       {addNew && <AddNewContact close={closeAddNew} addContact={addContact} />}
+      {editNew && (
+        <EditContact close={closeEdit} contact={selectedContact} />
+      )}{" "}
+
+      {
+        deleteContact &&(
+            <DeleteContact close={closeDelete}/>
+        )
+      }
     </>
   );
 };
 
 const mapStateToProps = (state: any) => ({
-  contacts: state.contacts.contacts,
+  contacts: state.contacts.contacts.filter((contact: any) => contact !== null),
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   addContact: (contact: any) => dispatch(addContact(contact)),
+  editContact: (contact: any) => dispatch(editContact(contact)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact);

@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from '../../ContactsSlice';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { editContact } from "../../ContactsSlice";
 
-export default function EditContact({ close }: any) {
+export default function EditContact({ close, contact }:any) {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    dialCode: '',
-    phoneNumber: '',
-    role: '', 
-    status: 'Active', 
+    firstName: contact.firstName,
+    lastName: contact.lastName,
+    email: contact.email,
+    dialCode: contact.dialCode,
+    phoneNumber: contact.phoneNumber,
+    role: contact.role,
+    status: contact.status,
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e:any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -22,14 +22,15 @@ export default function EditContact({ close }: any) {
   };
 
   const handleSubmit = () => {
-    dispatch(addContact(formData));
+    const { email } = contact;
+    dispatch(editContact({ email, updatedContact: formData }));
     close();
   };
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen bg-white bg-opacity-80 flex justify-center items-center z-10 shadow-md">
-      <div className="w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-[#eaf2fa] rounded p-4">
-        <div className="text-lg font-semibold mb-4">Add New Contact</div>
+      <div className="w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-[#eaf2fa] rounded p-4 border border-gray">
+        <div className="text-lg font-semibold mb-4">Edit Contact</div>
 
         <div className="flex flex-col space-y-4">
           <div className="flex flex-col md:flex-row md:space-x-4">
@@ -67,16 +68,7 @@ export default function EditContact({ close }: any) {
           </div>
 
           <div className="flex flex-col md:flex-row md:space-x-4">
-            <div>
-              <div>Phone Dial Code</div>
-              <input
-                type="text"
-                name="dialCode"
-                value={formData.dialCode}
-                onChange={handleChange}
-                className="border border-gray rounded p-2 mt-2 w-full md:w-1/4"
-              />
-            </div>
+            
             <div className="flex-1">
               <div>Phone Number</div>
               <input
@@ -107,9 +99,9 @@ export default function EditContact({ close }: any) {
                 type="radio"
                 name="status"
                 value="Active"
-                checked={formData.status === 'Active'}
+                checked={formData.status === "Active"}
                 onChange={handleChange}
-              />{' '}
+              />{" "}
               <span className="ml-2">Active</span>
             </label>
             <label className="flex items-center mt-2">
@@ -117,9 +109,9 @@ export default function EditContact({ close }: any) {
                 type="radio"
                 name="status"
                 value="Inactive"
-                checked={formData.status === 'Inactive'}
+                checked={formData.status === "Inactive"}
                 onChange={handleChange}
-              />{' '}
+              />{" "}
               <span className="ml-2">Inactive</span>
             </label>
           </div>
@@ -129,7 +121,7 @@ export default function EditContact({ close }: any) {
               className="px-4 py-2 bg-[#4987EE]  text-white rounded active:scale-90 hover:bg-opacity-80"
               onClick={handleSubmit}
             >
-              Save
+              Edit
             </button>
             <button
               className="px-4 py-2 border border-gray rounded ml-4 active:scale-90 hover:bg-opacity-30"
