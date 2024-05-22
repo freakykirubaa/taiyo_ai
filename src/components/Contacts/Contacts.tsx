@@ -43,7 +43,9 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
         <div className="mt-20 md:flex gap-4 flex-wrap justify-center">
           {contacts.length === 0 ? (
             <div className="flex justify-center items-center">
-              No contacts found.<br/>Add New Contact
+              No contacts found.
+              <br />
+              Add New Contact
             </div>
           ) : (
             contacts.map((contact: any, index: any) => (
@@ -68,7 +70,7 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
                   <div className="mt-6">
                     <div>{contact.email}</div>
                     <div>
-                      +{contact.dialCode}
+                      +91
                       {contact.phoneNumber}
                     </div>
                   </div>

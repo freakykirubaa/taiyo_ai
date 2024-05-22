@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editContact } from "../../ContactsSlice";
 
-export default function EditContact({ close, contact }:any) {
+export default function EditContact({ close, contact }: any) {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     firstName: contact.firstName,
@@ -14,7 +14,7 @@ export default function EditContact({ close, contact }:any) {
     status: contact.status,
   });
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -69,7 +69,6 @@ export default function EditContact({ close, contact }:any) {
           </div>
 
           <div className="flex flex-col md:flex-row md:space-x-4">
-            
             <div className="flex-1">
               <div>Phone Number</div>
               <input

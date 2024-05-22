@@ -5,7 +5,7 @@ export default function DeleteContact({ close, contact }: any) {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteContact(contact.email)); // Assuming contact has an email property
+    dispatch(deleteContact(contact.email));
     close();
   };
 

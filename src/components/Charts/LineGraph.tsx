@@ -11,6 +11,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -35,10 +36,10 @@ const LineGraph: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           "https://disease.sh/v3/covid-19/countries"
         );
-        const data: CountryData[] = await response.json();
+        const data: CountryData[] = await response.data;
         setCountryData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -73,7 +74,7 @@ const LineGraph: React.FC = () => {
   return (
     <div className="p-4">
       <h2>COVID-19 Cases and Deaths by Country</h2>
-      <div className="h-[800px] w-[800px]">
+      <div className="sm:h-[800px]">
         <Line data={chartData} />
       </div>
     </div>
