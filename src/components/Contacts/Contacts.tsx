@@ -74,16 +74,16 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
                       {contact.phoneNumber}
                     </div>
                   </div>
-                  <div className="flex justify-center gap-x-2">
+                  <div className="flex justify-center gap-x-2 relative">
                     <button
-                      className="px-4 py-2  rounded-[9px] text-[15px] text-white bg-[#4987EE] active:scale-90 hover:bg-opacity-80"
+                      className="px-4 py-2 rounded-[9px] text-[15px] text-white bg-[#4987EE] active:scale-90 hover:bg-opacity-80"
                       onClick={() => openEdit(contact)}
                     >
                       Edit
                     </button>
 
                     <button
-                      className="px-4 py-2 text-white rounded-[9px] text-[15px] bg-Red active:scale-90 hover:bg-opacity-80"
+                      className="px-4 py-2 text-white rounded-[9px] text-[15px] bg-Red active:scale-90 hover:bg-opacity-80 "
                       onClick={() => {
                         setSelectedContact(contact);
                         setDeleteNew(true);

@@ -9,16 +9,17 @@ export default function Charts() {
         <div className="text-[28px] mt-6">Charts and Maps</div>
         <div className="w-full">
           <div className="flex justify-center gap-x-4">
-            <div className="w-full md:h-[500px] bg-white rounded-[6px] flex justify-center sm:h-[400px]">
+            <div className="w-full md:h-[500px] bg-white rounded-[6px] flex justify-center sm:h-[300px]">
               <LineGraph />
             </div>
-          </div>
-          <div className=" bg-white rounded-[6px] w-full mt-20 md:h-[600px] h-full p-4 ">
-            <LeafLet />
           </div>
           <div className=" bg-white rounded-[6px] w-full mt-20 md:h-[600px] h-full p-4">
           <GlobalPieChart/>
           </div>
+          <div className=" bg-white rounded-[6px] w-full mt-20 md:h-[600px] h-full p-4 ">
+            <LeafLet />
+          </div>
+          
         </div>
       </div>
     </>

@@ -74,7 +74,7 @@ const LineGraph: React.FC = () => {
   return (
     <div className="p-4">
       <h2>COVID-19 Cases and Deaths by Country</h2>
-      <div className="sm:h-[800px]">
+      <div className="h-[800px] lg:w-[800px] w-full">
         <Line data={chartData} />
       </div>
     </div>
