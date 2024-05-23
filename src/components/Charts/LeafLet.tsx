@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface Country {
   country: string;
@@ -14,16 +15,16 @@ interface Country {
   };
 }
 
-const LeafLet: React.FC = () => {
+const LeafLet = () => {
   const [countryData, setCountryData] = useState<Country[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           "https://disease.sh/v3/covid-19/countries"
         );
-        const data: Country[] = await response.json();
+        const data: Country[] = await response.data;
         setCountryData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,10 +38,10 @@ const LeafLet: React.FC = () => {
     <div>
       <div className="text-xl mb-4">COVID-19 Map</div>
       <MapContainer
-      //@ts-ignore
+        //@ts-ignore
         center={[0, 0]}
         zoom={2}
-        className="w-full h-[500px]"
+        className="w-full md:h-[500px] sm:h-[350px]"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

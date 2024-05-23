@@ -18,7 +18,7 @@ const contactsSlice = createSlice({
 
       if (email && updatedContact) {
         const index = state.contacts.findIndex(
-          (contact:any) => contact.email === email
+          (contact: any) => contact.email === email
         );
         if (index !== -1) {
           state.contacts[index] = updatedContact;
@@ -29,7 +29,7 @@ const contactsSlice = createSlice({
     deleteContact(state, action) {
       const emailToDelete = action.payload;
       state.contacts = state.contacts.filter(
-        (contact:any) => contact.email !== emailToDelete
+        (contact: any) => contact.email !== emailToDelete
       );
       localStorage.setItem("contacts", JSON.stringify(state.contacts));
     },
