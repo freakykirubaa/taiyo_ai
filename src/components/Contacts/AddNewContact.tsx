@@ -3,16 +3,17 @@ import { useDispatch } from "react-redux";
 import { addContact } from "../../ContactsSlice";
 
 export default function AddNewContact({ close }: any) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Hook to dispatch actions to the Redux store
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
     role: "",
-    status: "Active",
+    status: "Active", // Default status is set to Active
   });
 
+  // Handler to update form data state on input change
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
@@ -20,11 +21,13 @@ export default function AddNewContact({ close }: any) {
     });
   };
 
+  // Handler to dispatch addContact action and close the modal
   const handleSubmit = () => {
     dispatch(addContact(formData));
     close();
   };
 
+  // Function to check if the form is valid
   const isFormValid = () => {
     return Object.values(formData).every((value) => value.trim() !== "");
   };

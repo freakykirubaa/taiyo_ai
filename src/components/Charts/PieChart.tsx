@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Pie } from "react-chartjs-2";
 import Chart, {
   CategoryScale,
@@ -10,44 +10,24 @@ import Chart, {
   Title,
   Tooltip,
 } from "chart.js/auto";
+import { fetchGlobalData } from "../../api/api";
 
-const fetchGlobalData = async () => {
-  const response = await fetch("https://disease.sh/v3/covid-19/all");
-  if (!response.ok) {
-    throw new Error("Failed to fetch global data");
-  }
-  return response.json();
-};
+// Initialize Chart.js components
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 const GlobalPieChart = () => {
-  const [globalData, setGlobalData] = useState(null);
+  const { data: globalData, isLoading } = useQuery("globalData", fetchGlobalData);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchGlobalData();
-        setGlobalData(data);
-      } catch (error) {
-        console.error("Error fetching global data:", error);
-      }
-    };
-
-    fetchData();
-
-    // Initialize Chart.js components
-    Chart.register(
-      CategoryScale,
-      LinearScale,
-      PointElement,
-      LineElement,
-      Title,
-      Tooltip,
-      Legend,
-      Filler
-    );
-  }, []);
-
-  if (!globalData) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -75,4 +55,3 @@ const GlobalPieChart = () => {
 };
 
 export default GlobalPieChart;
-

@@ -6,29 +6,34 @@ import EditContact from "./EditContact";
 import DeleteContact from "./DeleteContact";
 
 const Contact = ({ contacts, addContact, deleteContact }: any) => {
-  const [addNew, setAddNew] = useState(false);
-  const [editNew, setEditNew] = useState(false);
-  const [deleteNew, setDeleteNew] = useState(false);
-  const [selectedContact, setSelectedContact] = useState<any>(null);
+  const [addNew, setAddNew] = useState(false); // State for adding a new contact modal
+  const [editNew, setEditNew] = useState(false); // State for editing a contact modal
+  const [deleteNew, setDeleteNew] = useState(false); // State for deleting a contact modal
+  const [selectedContact, setSelectedContact] = useState<any>(null); // State for the selected contact
 
+  // Function to open add new contact modal
   const openAddNew = () => {
     setAddNew(true);
   };
 
+  // Function to close add new contact modal
   const closeAddNew = () => {
     setAddNew(false);
   };
 
+  // Function to open edit contact modal
   const openEdit = (contact: any) => {
     setEditNew(true);
     setSelectedContact(contact);
   };
 
+  // Function to close edit contact modal
   const closeEdit = () => {
     setEditNew(false);
     setSelectedContact(null);
   };
 
+  // Function to close delete contact modal
   const closeDelete = () => {
     setDeleteNew(false);
   };
@@ -48,6 +53,7 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
               Add New Contact
             </div>
           ) : (
+            // Map through contacts to display each contact
             contacts.map((contact: any, index: any) => (
               <div key={index} className="w-full md:w-[300px] mb-6 md:mb-0">
                 <div className="bg-white shadow-md rounded-md p-4">
@@ -75,6 +81,7 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
                     </div>
                   </div>
                   <div className="flex justify-center gap-x-2 relative">
+                    {/* Button to open edit contact modal */}
                     <button
                       className="px-4 py-2 rounded-[9px] text-[15px] text-white bg-[#4987EE] active:scale-90 hover:bg-opacity-80"
                       onClick={() => openEdit(contact)}
@@ -82,6 +89,7 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
                       Edit
                     </button>
 
+                    {/* Button to open delete contact modal */}
                     <button
                       className="px-4 py-2 text-white rounded-[9px] text-[15px] bg-Red active:scale-90 hover:bg-opacity-80 "
                       onClick={() => {
@@ -98,6 +106,7 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
           )}
         </div>
       </div>
+      {/* Button to open add new contact modal */}
       <div className="absolute right-0 p-3 mt-6">
         <button
           className="px-4 py-2 text-white rounded-[9px] text-[15px] bg-[#4987EE] active:scale-90 hover:bg-opacity-80"
@@ -106,10 +115,11 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
           + Add New
         </button>
       </div>
+      {/* Render add new contact modal */}
       {addNew && <AddNewContact close={closeAddNew} addContact={addContact} />}
-      {editNew && (
-        <EditContact close={closeEdit} contact={selectedContact} />
-      )}{" "}
+      {/* Render edit contact modal */}
+      {editNew && <EditContact close={closeEdit} contact={selectedContact} />}
+      {/* Render delete contact modal */}
       {deleteNew && (
         <DeleteContact
           close={closeDelete}
@@ -121,14 +131,17 @@ const Contact = ({ contacts, addContact, deleteContact }: any) => {
   );
 };
 
+// Map state to props to get the contacts from the redux store
 const mapStateToProps = (state: any) => ({
   contacts: state.contacts.contacts.filter((contact: any) => contact !== null),
 });
 
+// Map dispatch to props to dispatch actions to the redux store
 const mapDispatchToProps = (dispatch: any) => ({
   addContact: (contact: any) => dispatch(addContact(contact)),
   editContact: (contact: any) => dispatch(editContact(contact)),
   deleteContact: (email: string) => dispatch(deleteContact(email)),
 });
 
+// Connect the component to the redux store
 export default connect(mapStateToProps, mapDispatchToProps)(Contact);

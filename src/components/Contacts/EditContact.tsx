@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { editContact } from "../../ContactsSlice";
 
 export default function EditContact({ close, contact }: any) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Hook to dispatch actions to the Redux store
   const [formData, setFormData] = useState({
     firstName: contact.firstName,
     lastName: contact.lastName,
@@ -12,8 +12,9 @@ export default function EditContact({ close, contact }: any) {
     phoneNumber: contact.phoneNumber,
     role: contact.role,
     status: contact.status,
-  });
+  }); // Initializing form data with the contact's details
 
+  // Handler to update form data state when input fields change
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
@@ -21,6 +22,7 @@ export default function EditContact({ close, contact }: any) {
     });
   };
 
+  // Handler to dispatch editContact action with updated contact details
   const handleSubmit = () => {
     const { email } = contact;
     dispatch(editContact({ email, updatedContact: formData }));
