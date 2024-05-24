@@ -5,11 +5,15 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store.tsx";
 import { inject } from "@vercel/analytics";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 inject();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

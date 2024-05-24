@@ -2,8 +2,9 @@ import { useDispatch } from "react-redux";
 import { deleteContact } from "../../ContactsSlice";
 
 export default function DeleteContact({ close, contact }: any) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Hook to dispatch actions to the Redux store
 
+  // Handler to dispatch deleteContact action and close the modal
   const handleDelete = () => {
     dispatch(deleteContact(contact.email));
     close();

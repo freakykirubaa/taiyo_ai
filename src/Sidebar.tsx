@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { menuItems } from "./common/common";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false); // State to manage the sidebar open/close state
+  const location = useLocation(); // Hook to get the current location
 
+  // Function to toggle the sidebar open/close state
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <div className="fixed h-full top-0 left-0 w-64 flex-shrink-0"> 
-
+      {/* Button to open the sidebar, visible on small screens */}
       <div className="md:hidden">
         <button
           onClick={toggleSidebar}
@@ -31,11 +33,13 @@ const Sidebar = () => {
         </button>
       </div>
 
+      {/* Sidebar navigation */}
       <div
         className={`absolute md:relative top-0 left-0 z-50 w-60 h-full  text-white transition-transform duration-300 transform  ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
+        {/* Button to close the sidebar, visible on small screens */}
         <button
           onClick={toggleSidebar}
           className={`absolute top-5 right-5 md:hidden p-4 ${
@@ -54,37 +58,31 @@ const Sidebar = () => {
             <path d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
+        
+        {/* Navigation links */}
         <nav className="h-screen bg-[#edf5fd] shadow-lg p-4">
           <ul>
-            <div className="text-black">DashBoard</div>
-            <li className="mt-4">
-              <Link
-                to="/"
-                className={`block px-4 py-2  ${
-                  location.pathname === "/"
-                    ? "bg-[#4987EE] text-white rounded-[6px]"
-                    : "text-black"
-                }`}
-              >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/charts-and-maps"
-                className={`block px-4 py-2  ${
-                  location.pathname === "/charts-and-maps"
-                    ? "bg-[#4987EE] text-white rounded-[6px]"
-                    : "text-black"
-                }`}
-              >
-                Charts and Maps
-              </Link>
-            </li>
+            <div className="text-black">Taiyo DashBoard</div>
+            {/* Map through menuItems to create navigation links */}
+            {menuItems.map(item => (
+              <li key={item.path} className="mt-4">
+                <Link
+                  to={item.path}
+                  className={`block px-4 py-2 ${
+                    location.pathname === item.path
+                      ? "bg-[#4987EE] text-white rounded-[6px]"
+                      : "text-black"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
 
+      {/* Overlay to close the sidebar when clicked outside, visible on small screens */}
       {isOpen && (
         <div
           className="fixed inset-0 z-30 bg-black opacity-50 md:hidden"
