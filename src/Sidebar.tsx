@@ -12,7 +12,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed h-full top-0 left-0 w-64 flex-shrink-0"> 
+    <div className="fixed h-full top-0 left-0 w-64 flex-shrink-0">
       {/* Button to open the sidebar, visible on small screens */}
       <div className="md:hidden">
         <button
@@ -58,13 +58,15 @@ const Sidebar = () => {
             <path d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
-        
+
         {/* Navigation links */}
         <nav className="h-screen bg-[#edf5fd] shadow-lg p-4">
           <ul>
-            <div className="text-black">Taiyo DashBoard</div>
+            <Link to="/">
+              <div className="text-black">Taiyo DashBoard</div>
+            </Link>
             {/* Map through menuItems to create navigation links */}
-            {menuItems.map(item => (
+            {menuItems.map((item) => (
               <li key={item.path} className="mt-4">
                 <Link
                   to={item.path}
